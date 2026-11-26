@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ur-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fatima, aap ke liye</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#22102a;--bg2:#4a2152;--ink:#fbeee9;--muted:#d6b9c4;--rose:#f2a7a3;--gold:#ecc77f;--card:rgba(255,255,255,.09);--line:rgba(242,167,163,.45);--on:#2b1230}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#fff1ee;--bg2:#ffd3d6;--ink:#3b1a2b;--muted:#7a5564;--rose:#c4566a;--gold:#9c6b1f;--card:rgba(255,255,255,.8);--line:rgba(196,86,106,.45);--on:#fff}}
+:root[data-theme="light"]{--bg:#fff1ee;--bg2:#ffd3d6;--ink:#3b1a2b;--muted:#7a5564;--rose:#c4566a;--gold:#9c6b1f;--card:rgba(255,255,255,.8);--line:rgba(196,86,106,.45);--on:#fff}
+:root[data-theme="dark"]{--bg:#22102a;--bg2:#4a2152;--ink:#fbeee9;--muted:#d6b9c4;--rose:#f2a7a3;--gold:#ecc77f;--card:rgba(255,255,255,.09);--line:rgba(242,167,163,.45);--on:#2b1230}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:17px/1.7 "Nunito",system-ui,sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0,var(--bg2),transparent 70%),radial-gradient(circle at 90% 100%,var(--bg2),transparent 55%);animation:drift 14s ease-in-out infinite alternate}
+@keyframes drift{to{transform:scale(1.15) translateY(-3%)}}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.serif{font-family:"Cormorant Garamond",Georgia,serif}
+#stage{position:fixed;inset:0;z-index:2;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.pg{position:absolute;inset:0;overflow-y:auto;opacity:0;visibility:hidden;transform:translateX(60px) scale(.97);filter:blur(10px);transition:opacity .7s,transform .8s cubic-bezier(.2,.8,.2,1),filter .7s,visibility .7s;padding:70px 22px 110px;display:flex}
+.pg.prev{transform:translateX(-60px) scale(.97)}
+.pg.on{opacity:1;visibility:visible;transform:none;filter:none}
+.box{margin:auto;width:100%;max-width:560px;text-align:center}
+h1,h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.08;margin:0 0 18px}
+h1{font-size:clamp(46px,13vw,84px)}h2{font-size:clamp(32px,8.5vw,46px)}
+.lead{color:var(--rose);font-style:italic;font-size:clamp(21px,5.4vw,28px)}
+.hint{color:var(--muted);font-size:14.5px;margin-top:10px}
+/* nav */
+#bar{position:fixed;left:0;right:0;top:0;z-index:5;display:flex;gap:7px;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 18px) 20px 0}
+#bar i{width:26px;height:4px;border-radius:4px;background:var(--line);transition:background .5s,width .5s}
+#bar i.d{background:var(--rose)}#bar i.c{background:var(--gold);width:40px}
+#nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:16px 20px calc(env(safe-area-inset-bottom,0px) + 18px)}
+button{font:inherit;font-weight:700;cursor:pointer;border-radius:999px;border:1.5px solid var(--rose);padding:13px 28px;color:var(--ink);background:transparent;transition:transform .2s,opacity .5s,background .3s}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+button:active{transform:scale(.96)}
+#next{background:var(--rose);color:var(--on);animation:nudge 1.8s ease-in-out infinite}
+#next[disabled]{opacity:0;pointer-events:none;animation:none}
+#back{opacity:.8;padding:13px 20px}#back[hidden]{display:block;visibility:hidden}
+@keyframes nudge{50%{transform:translateX(5px)}}
+/* envelope */
+.env{position:relative;width:min(290px,76vw);aspect-ratio:1.5;margin:30px auto;border:0;padding:0;background:none;animation:pulse 2.4s ease-in-out infinite;filter:drop-shadow(0 20px 40px rgba(0,0,0,.4))}
+.env div{position:absolute}
+.env .body{inset:0;background:linear-gradient(160deg,#f6c9c3,#e08f9a);border-radius:8px}
+.env .paper{left:9%;right:9%;top:6%;bottom:8%;background:#fff7ef;border-radius:4px;transition:transform .9s .5s cubic-bezier(.2,.8,.2,1)}
+.env .front{inset:0;background:linear-gradient(200deg,#f0a0a8,#d4758a);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);border-radius:8px}
+.env .flap{left:0;right:0;top:0;height:58%;background:linear-gradient(#e58795,#d4758a);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s}
+.env .seal{left:50%;top:50%;transform:translate(-50%,-50%);font-size:36px;z-index:3;transition:opacity .3s}
+.env.open{animation:none}.env.open .flap{transform:rotateX(180deg)}.env.open .paper{transform:translateY(-72%)}.env.open .seal{opacity:0}
+@keyframes pulse{50%{transform:scale(1.06) rotate(-1.5deg)}}
+/* typed */
+#type{white-space:pre-wrap;text-align:left;font-size:18.5px;margin:0;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 22px;min-height:290px}
+#type.t::after{content:"|";color:var(--rose);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+/* confession lines */
+.ln{opacity:0;filter:blur(8px);transform:translateY(20px);font-size:clamp(21px,5.6vw,27px);line-height:1.4;margin:0 0 26px}
+.pg.on .ln{animation:fadeIn 1.3s forwards}.pg.on .ln:nth-of-type(2){animation-delay:1.6s}.pg.on .ln:nth-of-type(3){animation-delay:3.2s}.pg.on .ln:nth-of-type(4){animation-delay:4.8s}
+@keyframes fadeIn{to{opacity:1;filter:none;transform:none}}
+/* flip cards */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.fc{perspective:900px;height:178px;border:0;padding:0;background:none;border-radius:18px}
+.in2{position:relative;width:100%;height:100%;transition:transform .8s;transform-style:preserve-3d}
+.fc.flip .in2{transform:rotateY(180deg)}
+.f,.b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;border:1px solid var(--line)}
+.f{background:var(--card)}.f em{font-size:34px;font-style:normal}.f strong{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;line-height:1.15;margin-top:4px}
+.b{background:linear-gradient(150deg,var(--rose),var(--gold));color:#2b1230;transform:rotateY(180deg);font-size:14px;line-height:1.5;font-weight:700}
+/* promises */
+.pr{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.pr button{display:flex;gap:14px;align-items:center;text-align:left;border-radius:16px;padding:14px 16px;background:var(--card);border-color:var(--line);font-weight:600;width:100%}
+.pr .k{flex:none;width:34px;height:34px;border-radius:50%;border:2px dashed var(--rose);display:grid;place-items:center;font-size:18px;color:transparent;transition:all .4s}
+.pr button.s{border-color:var(--gold)}.pr button.s .k{border:2px solid var(--gold);background:var(--gold);color:#2b1230;transform:rotate(360deg) scale(1.1)}
+.pr b{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;color:var(--gold);line-height:1.15}
+.pr span{font-size:14.5px;font-weight:400;color:var(--muted)}
+/* hold heart */
+#hold{width:190px;height:190px;border-radius:50%;padding:0;border:0;margin:26px auto 14px;position:relative;display:grid;place-items:center;background:conic-gradient(var(--gold) calc(var(--p,0)*1%),var(--line) 0);touch-action:none;user-select:none;-webkit-user-select:none}
+#hold::before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--bg2)}
+#hold span{position:relative;font-size:78px;line-height:1;animation:beat 1.2s infinite}
+#hold.go span{animation-duration:.4s}
+@keyframes beat{15%{transform:scale(1.18)}30%{transform:scale(1)}45%{transform:scale(1.12)}}
+/* ask */
+.arena{position:relative;height:230px;margin-top:14px}
+.arena button{position:absolute;transition:left .35s,top .35s,transform .35s}
+#yes{left:50%;top:24px;transform:translateX(-50%);background:var(--rose);color:var(--on);z-index:2;animation:glow 2s infinite}
+#no{left:50%;top:150px;transform:translateX(-50%)}
+@keyframes glow{70%{box-shadow:0 0 0 20px transparent}0%{box-shadow:0 0 0 0 var(--rose)}}
+#msg{font-size:clamp(24px,6vw,32px);line-height:1.35;color:var(--gold)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}.ln{opacity:1;filter:none;transform:none}}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<div id="bar"></div>
+<div id="stage">
+
+<section class="pg on" data-lock="1"><div class="box">
+  <p class="lead serif" style="margin:0">Fatima, ek chitthi hai aap ke liye</p>
+  <button class="env" id="env" aria-label="Chitthi kholo"><div class="body"></div><div class="paper"></div><div class="front"></div><div class="flap"></div><div class="seal">💌</div></button>
+  <p class="hint">Lifafay par tap karein</p>
+</div></section>
+
+<section class="pg" data-lock="1" id="p1"><div class="box">
+  <h2>Mujhe pata hai…</h2>
+  <p id="type"></p>
+</div></section>
+
+<section class="pg"><div class="box">
+  <h2>Meri ghalti</h2>
+  <p class="ln serif">Chahe jaan kar ya anjaane mein, maine aap ka dil dukhaya.</p>
+  <p class="ln serif">Aap ko samjhane se pehle mujhe aap ko sunna chahiye tha.</p>
+  <p class="ln serif">Mere liye meri jeet se zyada, aap ki khushi ahem hai.</p>
+</div></section>
+
+<section class="pg" data-lock="1" id="p3"><div class="box">
+  <h2>Aap ki wo baatein jo mujhe pasand hain</h2>
+  <p class="hint">Kam az kam 3 cards palat kar dekhein</p>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section class="pg" data-lock="1" id="p4"><div class="box">
+  <h2>Mere wade</h2>
+  <p class="hint">Har wade par tap karke meri taraf se mohar lagayein</p>
+  <div class="pr" id="pr"></div>
+</div></section>
+
+<section class="pg" data-lock="1" id="p5"><div class="box">
+  <h2>Dil se maafi</h2>
+  <p class="lead serif" style="margin:0">Dil par ungli rakhein aur dabaye rakhein</p>
+  <button id="hold" aria-label="Dil dabaye rakhein"><span>❤️</span></button>
+  <p class="hint" id="hp">0%</p>
+</div></section>
+
+<section class="pg" data-lock="1" id="p6"><div class="box">
+  <h2>Batayein Fatima,<br>kya aap mujhe maaf karengi?</h2>
+  <div class="arena" id="arena">
+    <button id="yes">Haan, maaf kiya 💗</button>
+    <button id="no">Nahi</button>
+  </div>
+  <p id="msg" class="serif"></p>
+</div></section>
+</div>
+
+<div id="nav"><button id="back" hidden>← Peeche</button><button id="next" disabled>Aage chalo →</button></div>
+
+<script>
+/* ===== details ===== */
+var HER="Fatima", HIS="Khalil";
+var LETTER=HER+",\n\nMujhe pata hai aap mujh se naraz hain. Aap kuch kehti nahi, lekin aap ki khamoshi mujhe sab kuch bata deti hai.\n\nIsi liye maine yeh chhoti si chitthi aap ke liye banayi hai. Bas ek minute meri baat sun lijiye.";
+var REASONS=[["🌸","Aap ki muskurahat","Jab aap hansti hain, meri poori thakan utar jati hai."],["🍲","Aap ka khayal","Aap mere liye jo kuch karti hain, main ginwa nahi sakta."],["🤝","Aap ka saath","Har mushkil mein aap mere saath khadi rahi hain."],["✨","Aap ki saadgi","Aap ki saaf dili aap ko sab se alag banati hai."],["🏡","Aap se ghar","Aap ke dam se yeh makaan ghar bana hai."],["🌙","Aap ki duayen","Mujhe yaqeen hai meri kamyabi mein aap ki duayen hain."]];
+var VOWS=[["Pehle sununga","Jab aap kuch kahein, poori tawajjo se sununga, bahs nahi karunga."],["Chhoti baaton ka khayal","Jo cheezein aap ke liye ahem hain, unhein halka nahi lunga."],["Waqt sirf aap ke liye","Roz thora waqt sirf hum dono ke liye, phone ke baghair."],["Shukriya kehta rahunga","Aap jo karti hain, uski qadar hai, aur ab kehta bhi rahunga."]];
+/* ===== setup ===== */
+var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+var pgs=[].slice.call(document.querySelectorAll(".pg")),cur=0,bar=document.getElementById("bar"),next=document.getElementById("next"),back=document.getElementById("back");
+var unlocked=pgs.map(function(p){return !p.dataset.lock});
+pgs.forEach(function(){bar.appendChild(document.createElement("i"))});
+function unlock(i){unlocked[i]=true;if(i===cur)next.disabled=false}
+function go(n){
+  if(n<0||n>=pgs.length||n>cur&&!unlocked[cur])return;
+  pgs.forEach(function(p,i){p.classList.toggle("on",i===n);p.classList.toggle("prev",i<n)});
+  cur=n;[].forEach.call(bar.children,function(b,i){b.className=i<n?"d":i===n?"c":""});
+  next.disabled=!unlocked[n]||n===pgs.length-1;back.hidden=n<2;
+  if(n===1)typeLetter();
+}
+next.onclick=function(){go(cur+1)};back.onclick=function(){if(cur>1)go(cur-1)};
+addEventListener("keydown",function(e){if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft"&&cur>1)go(cur-1)});
+var sx=0;addEventListener("touchstart",function(e){sx=e.touches[0].clientX},{passive:true});
+addEventListener("touchend",function(e){var d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>70){d<0?go(cur+1):(cur>1&&go(cur-1))}},{passive:true});
+go(0);
+
+/* envelope */
+document.getElementById("env").onclick=function(){this.classList.add("open");burst(innerWidth/2,innerHeight/2,40);setTimeout(function(){unlock(0);go(1)},1700)};
+
+/* typewriter */
+var typed=false;
+function typeLetter(){
+  if(typed)return;typed=true;var el=document.getElementById("type"),i=0;el.classList.add("t");
+  if(reduce){el.textContent=LETTER;el.classList.remove("t");unlock(1);return}
+  (function s(){el.textContent=LETTER.slice(0,++i);if(i<LETTER.length){var c=LETTER[i-1];setTimeout(s,c==="\n"?380:(c==="."||c===",")?190:30)}else{el.classList.remove("t");unlock(1)}})();
+}
+/* flip cards */
+var flips=0,grid=document.getElementById("grid");
+REASONS.forEach(function(r){var b=document.createElement("button");b.className="fc";b.setAttribute("aria-label",r[1]);
+  b.innerHTML='<div class="in2"><div class="f"><em>'+r[0]+'</em><strong>'+r[1]+'</strong></div><div class="b">'+r[2]+'</div></div>';
+  b.onclick=function(){if(!b.classList.contains("flip")){b.classList.add("flip");if(++flips===3){unlock(3);burst(innerWidth/2,innerHeight*.6,24)}}else b.classList.remove("flip")};grid.appendChild(b)});
+/* vows */
+var sealed=0,pr=document.getElementById("pr");
+VOWS.forEach(function(v){var b=document.createElement("button");b.innerHTML='<div class="k">✓</div><div><b>'+v[0]+'</b><span>'+v[1]+'</span></div>';
+  b.onclick=function(){if(b.classList.contains("s"))return;b.classList.add("s");burst(b.getBoundingClientRect().left+30,b.getBoundingClientRect().top+20,14);if(++sealed===VOWS.length)unlock(4)};pr.appendChild(b)});
+/* hold heart */
+var hold=document.getElementById("hold"),hp=document.getElementById("hp"),prog=0,holding=false,full=false;
+function setP(){hold.style.setProperty("--p",prog);hp.textContent=full?"Meri maafi aap tak pohonch gayi 💗":Math.round(prog)+"%"}
+function press(){if(full)return;holding=true;hold.classList.add("go")}
+function rel(){holding=false;hold.classList.remove("go")}
+hold.addEventListener("pointerdown",function(e){e.preventDefault();press()});
+["pointerup","pointerleave","pointercancel"].forEach(function(ev){hold.addEventListener(ev,rel)});
+hold.addEventListener("keydown",function(e){if((e.key===" "||e.key==="Enter")&&!e.repeat){e.preventDefault();press()}});
+hold.addEventListener("keyup",rel);
+setInterval(function(){if(full)return;prog=Math.max(0,Math.min(100,prog+(holding?2.2:-1.5)));if(prog>=100){full=true;rel();burst(innerWidth/2,innerHeight/2,50);unlock(5)}setP()},30);
+/* final */
+var yes=document.getElementById("yes"),no=document.getElementById("no"),arena=document.getElementById("arena"),dodge=0,T=["Nahi","Pakka?","Soch lein","Please 🥺","Phir bhi?","Dil toot jayega","Ab to maan jayein"];
+function run(){dodge++;no.textContent=T[Math.min(dodge,T.length-1)];var w=arena.clientWidth-no.offsetWidth,h=arena.clientHeight-no.offsetHeight;
+  no.style.left=(no.offsetWidth/2+Math.random()*w)+"px";no.style.top=(80+Math.random()*(h-80))+"px";yes.style.transform="translateX(-50%) scale("+Math.min(1+dodge*.12,1.7)+")"}
+["pointerenter","touchstart"].forEach(function(ev){no.addEventListener(ev,function(e){e.preventDefault();run()},{passive:false})});no.onclick=run;
+yes.onclick=function(){no.style.display="none";yes.disabled=true;yes.style.animation="none";yes.textContent="Shukriya meri jaan 💗";
+  document.getElementById("msg").innerHTML=HER+", maaf karne ka bohat shukriya.<br>Aap meri zindagi ka sab se haseen tohfa hain.<br><br>Hamesha aap ka,<br>"+HIS+" 🌹";
+  var n=0;(function g(){burst(Math.random()*innerWidth,innerHeight*.25+Math.random()*innerHeight*.3,34);if(++n<10)setTimeout(g,380)})()};
+
+/* canvas: petals + bursts */
+var cv=document.getElementById("fx"),cx=cv.getContext("2d"),W,H,pet=[],parts=[],EM=["🌸","💗","🌹","✨"];
+function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();addEventListener("resize",rs);
+for(var k=0;k<(reduce?0:22);k++)pet.push({x:Math.random()*W,y:Math.random()*H,s:14+Math.random()*16,v:.4+Math.random()*.8,w:Math.random()*6,e:EM[k%4]});
+function burst(x,y,n){if(reduce)return;for(var i=0;i<n;i++){var a=Math.random()*6.28,s=2+Math.random()*6;parts.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-2,l:1,e:EM[i%4],s:16+Math.random()*14})}}
+(function loop(){cx.clearRect(0,0,W,H);cx.globalAlpha=.5;
+  pet.forEach(function(p){p.y+=p.v;p.w+=.02;p.x+=Math.sin(p.w)*.6;if(p.y>H+30){p.y=-30;p.x=Math.random()*W}cx.font=p.s+"px serif";cx.fillText(p.e,p.x,p.y)});
+  parts=parts.filter(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.12;p.l-=.011;if(p.l<=0)return false;cx.globalAlpha=p.l;cx.font=p.s+"px serif";cx.fillText(p.e,p.x,p.y);return true});
+  cx.globalAlpha=1;requestAnimationFrame(loop)})();
+</script>
+</body>
+</html>
